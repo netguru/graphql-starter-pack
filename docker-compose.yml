@@ -1,0 +1,29 @@
+version: "3.7"
+
+x-common:
+  &common-settings
+  build:
+    context: .
+    dockerfile: docker/Dockerfile
+  restart: always
+
+services:
+  web:
+    << : *common-settings
+    networks:
+      - backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:12-alpine
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    networks:
+      - backend
+
+networks:
+  backend:
+    external: true
