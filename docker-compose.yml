@@ -23,6 +23,7 @@ services:
       - ./tmp/db:/var/lib/postgresql/data
     networks:
       - backend
+    restart: always
 
 networks:
   backend:
