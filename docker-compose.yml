@@ -16,6 +16,8 @@ services:
       - "3000:3000"
     depends_on:
       - db
+    volumes:
+      - ./:/app
 
   db:
     image: postgres:12-alpine
