@@ -1,4 +1,6 @@
+# frozen_string_literal: true
+
 class Product < ApplicationRecord
-   monetize :price_cents, as: :price
-   validates :name, :price_cents, presence: true
+  monetize :price_cents, as: :price
+  validates :name, :price_cents, presence: true
 end
