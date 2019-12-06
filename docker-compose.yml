@@ -18,6 +18,8 @@ services:
       - db
     volumes:
       - ./:/app
+    tty: true
+    stdin_open: true
 
   db:
     image: postgres:12-alpine

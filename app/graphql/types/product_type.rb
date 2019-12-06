@@ -7,5 +7,6 @@ module Types
     field :price, Integer, null: true
     field :description, String, null: true
     field :product_category, Types::ProductCategoryType, null: false
+    field :product_variants, [Types::ProductVariantType], null: true
   end
 end

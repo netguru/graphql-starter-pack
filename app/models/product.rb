@@ -5,4 +5,5 @@ class Product < ApplicationRecord
   validates :name, :price_cents, :product_category, presence: true
 
   belongs_to :product_category
+  has_many :product_variants
 end

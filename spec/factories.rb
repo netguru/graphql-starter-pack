@@ -10,4 +10,10 @@ FactoryBot.define do
     price_cents { 1234 }
     product_category
   end
+
+  factory :product_variant do
+    variant_type { "color" }
+    value { "ff0000" }
+    label { "red" }
+  end
 end
