@@ -22,4 +22,24 @@ RSpec.describe Types::QueryType do
       )
     end
   end
+
+  describe "product" do
+    let!(:product) { create(:product) }
+
+    let(:query) do
+      %(query {
+        product(id: #{product.id}) {
+          name
+        }
+      })
+    end
+
+    subject(:result) do
+      FashionStoreSchema.execute(query).as_json
+    end
+
+    it "returns item with given id" do
+      expect(result["data"]["product"]["name"]).to eq(product.name)
+    end
+  end
 end
