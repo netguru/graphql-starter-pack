@@ -4,10 +4,12 @@ require "json"
 
 Dir.chdir("./db")
 Dir.each_child("products") do |file|
-  data = JSON.parse(File.open("products/#{file}"))
+  data = JSON.parse(File.read("products/#{file}"))
   Product.create(
     name: data["data"]["productDisplayName"],
-    description: data["data"]["displayCategories"],
+    description: ActionController::Base.helpers.strip_tags(
+      data.dig("data", "productDescriptors", "description", "value")
+    ),
     price: data["data"]["price"]
   )
 
