@@ -6,5 +6,6 @@ module Types
     field :name, String, null: false
     field :price, Integer, null: true
     field :description, String, null: true
+    field :product_category, Types::ProductCategoryType, null: false
   end
 end

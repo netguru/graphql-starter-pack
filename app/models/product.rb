@@ -2,5 +2,7 @@
 
 class Product < ApplicationRecord
   monetize :price_cents, as: :price
-  validates :name, :price_cents, presence: true
+  validates :name, :price_cents, :product_category, presence: true
+
+  belongs_to :product_category
 end
