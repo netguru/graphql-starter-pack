@@ -28,3 +28,13 @@ Dir.each_child("products") do |file|
 
   p "Product #{data['data']['productDisplayName']} added"
 end
+
+cart = Cart.first_or_create
+p "Cart created"
+
+10.times do 
+  product = Product.order('RANDOM()').first
+  cart.cart_items.create(product: product, product_variant_id: product.product_variant_ids.sample)
+end
+
+p "Cart items created"

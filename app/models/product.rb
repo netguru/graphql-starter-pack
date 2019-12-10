@@ -6,4 +6,5 @@ class Product < ApplicationRecord
 
   belongs_to :product_category
   has_many :product_variants
+  has_many :cart_items 
 end
