@@ -14,6 +14,30 @@ module Types
             argument :id, ID, required: true
           end
 
+    field :carts,
+          [Types::CartType],
+          null: false,
+          description: "Returns a list of carts"
+
+    field :cart,
+          Types::CartType,
+          null: false,
+          description: "Return product category by ID" do
+            argument :id, ID, required: true
+          end
+
+    field :cart_item,
+          Types::CartItemType,
+          null: false,
+          description: "Return product category by ID" do
+            argument :id, ID, required: true
+          end
+
+    field :cart_items,
+          [Types::CartItemType],
+          null: false,
+          description: "Return list of cart_items"
+
     field :product_categories,
           [Types::ProductCategoryType],
           null: false,
@@ -28,6 +52,22 @@ module Types
 
     def products
       Product.all
+    end
+
+    def carts
+      Cart.all
+    end
+
+    def cart(id:)
+      Cart.find(id)
+    end
+
+    def cart_items
+      CartItem.all
+    end
+
+    def cart_item(id:)
+      CartItem.find(id)
     end
 
     def product(id:)
