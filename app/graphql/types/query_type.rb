@@ -22,14 +22,14 @@ module Types
     field :cart,
           Types::CartType,
           null: false,
-          description: "Return product category by ID" do
+          description: "Return cart by ID" do
             argument :id, ID, required: true
           end
 
     field :cart_item,
           Types::CartItemType,
           null: false,
-          description: "Return product category by ID" do
+          description: "Return cart item by ID" do
             argument :id, ID, required: true
           end
 

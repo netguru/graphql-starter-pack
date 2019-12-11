@@ -6,7 +6,7 @@ module Types
     field :name, String, null: false
     field :price, Integer, null: true
     field :description, String, null: true
-    field :product_category, Types::ProductCategoryType, null: false
-    field :product_variants, [Types::ProductVariantType], null: true
+    field :product_category, Types::ProductCategoryType, null: true
+    field :product_variant, Types::ProductVariantType, null: true
   end
 end
