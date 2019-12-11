@@ -74,4 +74,38 @@ RSpec.describe Types::QueryType do
       expect(result["data"]["productCategory"]["name"]).to eq(category.name)
     end
   end
+
+  describe "Cart" do
+    let!(:cart) { create(:cart) }
+
+    let(:query) do
+      %(query {
+        cart(id: #{cart.id}) {
+          numberOfItems
+        }
+      })
+    end
+
+    it "returns cart with given id" do
+      expect(result["data"]["cart"]["numberOfItems"]).to eq(cart.number_of_items)
+    end
+  end
+
+  describe "Carts" do
+    let!(:carts) { create_pair :cart }
+
+    let(:query) do
+      %(query {
+        carts {
+          numberOfItems
+        }
+      })
+    end
+
+    it "returns all carts" do
+      expect(result.dig("data", "carts")).to match_array(
+        carts.map { |cart| {"numberOfItems" => cart.number_of_items} }
+      )
+    end
+  end
 end

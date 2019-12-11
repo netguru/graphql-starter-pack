@@ -16,4 +16,13 @@ FactoryBot.define do
     value { "ff0000" }
     label { "red" }
   end
+
+  factory :cart do
+    number_of_items { 1 }
+  end
+
+  factory :cart_item do
+    quantity { 1 }
+    product_variant
+  end
 end
