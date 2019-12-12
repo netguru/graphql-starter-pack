@@ -51,7 +51,7 @@ module Types
           end
 
     def products
-      Product.all
+      Product.lazy_preload(:product_category, :product_variants)
     end
 
     def carts
