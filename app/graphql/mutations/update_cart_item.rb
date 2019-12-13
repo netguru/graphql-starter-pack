@@ -3,8 +3,8 @@
 module Mutations
   class UpdateCartItem < BaseMutation
     argument :id, Integer, required: true
-    argument :product_id, Integer, required: true
-    argument :quantity, Integer, required: true
+    argument :product_id, Integer, required: false
+    argument :quantity, Integer, required: false
     argument :product_variant_id, Integer, required: false
 
     field :cart_item, Types::CartItemType, null: false
