@@ -11,7 +11,7 @@ module Mutations
       cart_item = CartItem.find(id)
       if cart_item.destroy
         {
-          cart_item: cart_item,
+          cart_item: nil,
           errors: []
         }
       else

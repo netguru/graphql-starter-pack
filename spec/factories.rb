@@ -15,6 +15,7 @@ FactoryBot.define do
     variant_type { "color" }
     value { "ff0000" }
     label { "red" }
+    product
   end
 
   factory :cart do
@@ -24,5 +25,7 @@ FactoryBot.define do
   factory :cart_item do
     quantity { 1 }
     product_variant
+    product
+    cart
   end
 end
