@@ -31,9 +31,10 @@ gem 'money-rails', '~>1.12'
 gem 'rubocop', require: false
 
 group :development do
-  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'graphiql-rails'
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'search_object'
+  gem 'search_object_graphql'
   gem 'web-console', '>= 3.3.0'
 end
 

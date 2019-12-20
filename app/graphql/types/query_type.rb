@@ -14,6 +14,8 @@ module Types
             argument :id, ID, required: true
           end
 
+    field :all_products, function: Resolvers::ProductSearch
+
     field :carts,
           [Types::CartType],
           null: false,
