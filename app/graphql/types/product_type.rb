@@ -7,6 +7,14 @@ module Types
     field :price, Integer, null: true
     field :description, String, null: true
     field :product_category, Types::ProductCategoryType, null: true
-    field :product_variant, Types::ProductVariantType, null: true
+    field :product_variants, [Types::ProductVariantType], null: true
+
+    def product_category
+      RecordLoader.for(ProductCategory).load(object.product_category_id)
+    end
+
+    def product_variants
+      AssociationLoader.for(Product, :product_variants).load(object)
+    end
   end
 end

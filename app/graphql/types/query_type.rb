@@ -51,7 +51,7 @@ module Types
           end
 
     def products
-      Product.lazy_preload(:product_category, :product_variants)
+      Product.all
     end
 
     def carts
@@ -59,7 +59,7 @@ module Types
     end
 
     def cart(id:)
-      Cart.find(id)
+      Cart.first
     end
 
     def cart_items
