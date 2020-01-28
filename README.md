@@ -14,3 +14,6 @@ You can use [graphiql](http://localhost:3000/graphiql) to test your queries and 
 ## Tests
 You can easily run specs on docker using `docker-compose run --rm web rspec spec/`
 
+## Training
+Start at spec/training_spec.rb
+
