@@ -53,7 +53,7 @@ RSpec.describe "graphql training", type: :request do
         # Graphiql tool
         # Now when you can run a simple query, go to http://localhost:3000/graphiql and query "{ products { name } }" .
         # This is a console to interact directly with graphql engine, very helpfull during development.
-        # graphiql_works_for_me = true
+        # graphiql_works_for_me = false
         # expect(graphiql_works_for_me).to be true
 
         query =
