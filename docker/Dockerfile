@@ -22,11 +22,7 @@ WORKDIR ${APP_HOME}
 ADD Gemfile* /app/
 RUN gem install bundler:2.0.2
 RUN bundle config --global frozen 1 \
-    && bundle install -j4 --retry 3 \
-    # Remove unneeded files (cached *.gem, *.o, *.c)
-    && rm -rf /usr/local/bundle/cache/*.gem \
-    && find /usr/local/bundle/gems/ -name "*.c" -delete \
-    && find /usr/local/bundle/gems/ -name "*.o" -delete
+    && bundle install -j4 --retry 3
 
 # Install yarn packages
 COPY package.json yarn.lock /app/
@@ -52,20 +48,25 @@ RUN apk add --update --no-cache \
 
 RUN gem install bundler:2.0.2
 
-# Add user
-RUN addgroup -g 1000 -S app \
-    && adduser -u 1000 -S app -G app
-USER app
-
 # Copy app with gems from former build stage
 COPY --from=Builder /usr/local/bundle/ /usr/local/bundle/
-COPY --from=Builder --chown=app:app /app /app
+COPY --from=Builder /app /app
 
 # Set Rails env
 ENV RAILS_LOG_TO_STDOUT true
 ENV RAILS_SERVE_STATIC_FILES true
 
 WORKDIR /app
+
+RUN apk add --update --no-cache \
+    build-base \
+    postgresql-dev \
+    git \
+    imagemagick \
+    nodejs \
+    yarn \
+    tzdata
+RUN bundle install
 
 # Expose Puma port
 EXPOSE 3000
