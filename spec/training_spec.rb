@@ -152,23 +152,36 @@ RSpec.describe "graphql training", type: :request do
 
       expect(CartItem.count).to eq 0
     end
+
+    context "testing" do
+      # todo: https://graphql-ruby.org/testing/overview.html
+    end
   end
 
   context "advanced" do
     context "optimizing queries" do
-      it "use DataLoader to fix n+1" do
-        # DataLoader — Source code walkthrough https://www.youtube.com/watch?v=OQTnXNCDywA
+      it "graphql-batch" do
+        # https://github.com/Shopify/graphql-batch
+        pending
+      end
+
+      it "DataLoader" do
+        # https://www.youtube.com/watch?v=OQTnXNCDywA
+        # https://github.com/graphql/dataloader
         pending
       end
     end
 
     context "auth" do
+      # https://graphql-ruby.org/authorization/overview.html
+      # js seems involved: https://graphql.org/learn/authorization/
+
       it "authentication" do
+        pending
       end
 
       it "authorization" do
-        # todo
-        # js seems involved: https://graphql.org/learn/authorization/
+        pending
       end
     end
   end
