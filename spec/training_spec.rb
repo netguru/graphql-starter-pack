@@ -15,13 +15,23 @@ RSpec.describe "graphql training", type: :request do
   # https://graphql-ruby.org/guides
   # 
 
-  # Topic checklist:
+
+
+  # TODO
+  #
+  # 1. Write all scenarios.
+  #
+  # 2. Make sure all topics are covered:
   # Types & relations
   # Mutations (create, update, delete)
   # Filters
   # Testing
   # graphql-batch.
   # authentication
+  #
+  # 3. Comment out application code and mark with labels like: scenario_1
+
+
 
   context "basic" do
     it "queries" do
@@ -31,9 +41,20 @@ RSpec.describe "graphql training", type: :request do
       ProductVariant.create!(variant_type: "color", value: "ffffff", label: "white", product: otwarty_nosek)
       ProductVariant.create!(variant_type: "color", value: "000000", label: "black", product: otwarty_nosek)
 
-      # First lets make a simple query work.
-      # g-search "training_step_1"
-      # todo: comment out and mark types when all specs are finished
+      ## Scenario 1 - make simple query work.
+      #
+      # Lets start with a simple query.
+      #
+      # You will learn:
+      # - Graphql schema
+      # - Query type
+      # - Model type
+      # - Fields
+      #
+      # Instructions:
+      # todo: comment out application code and mark with label "scenario_1"
+      # g-search "scenario_1"
+
 
       query = 
         %(query {
@@ -50,11 +71,33 @@ RSpec.describe "graphql training", type: :request do
       names = result.dig("data", "products").map { |product| product["name"] }
       expect(names).to match_array(["Otwarty nosek", "Płaski obcas"])
 
-      # Graphiql tool
-      # Now when you can run a simple query, go to http://localhost:3000/graphiql and query "{ products { name } }" .
-      # This is a console to interact directly with graphql engine, very helpfull during development.
-      # graphiql_works_for_me = false
-      # expect(graphiql_works_for_me).to be true
+      ## Scenario 2 - graphiql simple use.
+      #
+      # Graphiql is a console available from webpage.
+      # Allows to query directly with graphql engine, very helpfull during development.
+      #
+      # You will learn:
+      # - graphiql tool 
+      #
+      # Instructions:
+      # - go to http://localhost:3000/graphiql and query "{ products { name } }" .
+      #
+
+      graphiql_works_for_me = true
+      expect(graphiql_works_for_me).to be true
+
+      ## Scenario 3 - make not that simple query work.
+      #
+      # Lets try a not that simple query.
+      #
+      # You will learn:
+      # - Filtering
+      # - Resolvers
+      # - Arguments
+      #
+      # Instructions:
+      # todo
+      # g-search "scenario_3"
 
       query =
         %(query {
@@ -81,7 +124,6 @@ RSpec.describe "graphql training", type: :request do
       # todo:
       # pagination
       # filters
-      # graphql-batch.
       # operation name
       # variables
       # https://graphql.org/learn/queries
@@ -93,6 +135,17 @@ RSpec.describe "graphql training", type: :request do
       otwarty_nosek = Product.create!(name: "Otwarty nosek", price_cents: 1, product_category: shoes)
       black_variant = ProductVariant.create!(variant_type: "color", value: "000000", label: "black", product: otwarty_nosek)
       white_variant = ProductVariant.create!(variant_type: "color", value: "ffffff", label: "white", product: otwarty_nosek)
+
+      ## Scenario 100012 - simple create.
+      #
+      # For creating a record you need to write a mutation.
+      #
+      # You will learn:
+      # - mutations that create records
+      #
+      # Instructions:
+      # todo
+      # - g-search "scenario_100012"
 
       query = %(
         mutation {
@@ -113,7 +166,6 @@ RSpec.describe "graphql training", type: :request do
 
       expect(CartItem.count).to eq 0
 
-      # create
       post "/graphql", params: { query: query }
 
       expect(CartItem.count).to eq 1
@@ -121,6 +173,17 @@ RSpec.describe "graphql training", type: :request do
       expect(cart_item.product).to eq otwarty_nosek
       expect(cart_item.product_variant).to eq white_variant
       expect(cart_item.quantity).to eq 2
+
+      ## Scenario 4543 - simple update.
+      #
+      # To update a record you need to write a mutation.
+      #
+      # You will learn:
+      # - mutations that update records
+      #
+      # Instructions:
+      # todo
+      # - g-search "scenario_4543"
 
       query = %(
           mutation {
@@ -134,11 +197,21 @@ RSpec.describe "graphql training", type: :request do
             }
           })
 
-      # update
       post "/graphql", params: { query: query }
 
       cart_item.reload
       expect(cart_item.quantity).to eq 4
+
+      ## Scenario 494567 - simple destroy.
+      #
+      # To destroy a record you need to write a mutation.
+      #
+      # You will learn:
+      # - mutations that destroy records
+      #
+      # Instructions:
+      # todo
+      # - g-search "scenario_494567"
 
       query = %(
           mutation {
@@ -147,7 +220,6 @@ RSpec.describe "graphql training", type: :request do
             }
           })
 
-      # destroy
       post "/graphql", params: { query: query }
 
       expect(CartItem.count).to eq 0
