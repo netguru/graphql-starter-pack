@@ -3,7 +3,6 @@
 require "rails_helper"
 
 RSpec.describe "graphql training", type: :request do
-
   ## What am I doing here?
   #
   # You will learn some graphql.
@@ -25,13 +24,9 @@ RSpec.describe "graphql training", type: :request do
   # https://graphql-ruby.org/guides
   # 
 
-
-
-  # TODO
+  # TODO: 1. Write all scenarios.
   #
-  # 1. Write all scenarios.
-  #
-  # 2. Make sure all topics are covered:
+  # TODO: 2. Make sure all topics are covered:
   # Types & relations
   # Mutations (create, update, delete)
   # Filters
@@ -39,17 +34,15 @@ RSpec.describe "graphql training", type: :request do
   # graphql-batch.
   # authentication
   #
-  # 3. Comment out application code and mark with labels like: scenario_1
-
-
+  # TODO: 3. Comment out application code and mark with labels like: scenario_1
 
   context "basic" do
-    it "queries" do
-      shoes = ProductCategory.create!(name: "Shoes")
-      otwarty_nosek = Product.create!(name: "Otwarty nosek", price_cents: 1, product_category: shoes)
-      Product.create!(name: "Płaski obcas", price_cents: 1, product_category: shoes)
-      ProductVariant.create!(variant_type: "color", value: "ffffff", label: "white", product: otwarty_nosek)
-      ProductVariant.create!(variant_type: "color", value: "000000", label: "black", product: otwarty_nosek)
+    context "queries" do
+      let(:shoes) { ProductCategory.create!(name: "Shoes") }
+      let(:open_nose) { Product.create!(name: "Open nose", price_cents: 1, product_category: shoes) }
+      let!(:flat) { Product.create!(name: "Flat", price_cents: 1, product_category: shoes) }
+      let!(:white_variant) { ProductVariant.create!(variant_type: "color", value: "ffffff", label: "white", product: open_nose) }
+      let!(:black_variant) { ProductVariant.create!(variant_type: "color", value: "000000", label: "black", product: open_nose) }
 
       ## Scenario 1 - make simple query work.
       #
@@ -62,24 +55,25 @@ RSpec.describe "graphql training", type: :request do
       # - Fields
       #
       # Instructions:
-      # todo: comment out application code and mark with label "scenario_1"
+      # TODO: comment out application code and mark with label "scenario_1"
       # g-search "scenario_1"
 
-
-      query = 
-        %(query {
-            products {
-              name
+      it "scenario_1" do
+        query = 
+          %(query {
+              products {
+                name
+              }
             }
-          }
-        )
+          )
 
-      post "/graphql", params: { query: query }
+        post "/graphql", params: { query: query }
 
-      result = JSON.parse(response.body)
+        result = JSON.parse(response.body)
 
-      names = result.dig("data", "products").map { |product| product["name"] }
-      expect(names).to match_array(["Otwarty nosek", "Płaski obcas"])
+        names = result.dig("data", "products").map { |product| product["name"] }
+        expect(names).to match_array(["Open nose", "Flat"])
+      end
 
       ## Scenario 2 - graphiql simple use.
       #
@@ -91,10 +85,11 @@ RSpec.describe "graphql training", type: :request do
       #
       # Instructions:
       # - go to http://localhost:3000/graphiql and query "{ products { name } }" .
-      #
 
-      graphiql_works_for_me = true
-      expect(graphiql_works_for_me).to be true
+      it "scenario_2" do
+        graphiql_works_for_me = true
+        expect(graphiql_works_for_me).to be true
+      end
 
       ## Scenario 3 - make not that simple query work.
       #
@@ -106,35 +101,37 @@ RSpec.describe "graphql training", type: :request do
       # - Arguments
       #
       # Instructions:
-      # todo
+      # TODO 
       # g-search "scenario_3"
 
-      query =
-        %(query {
-            productCategory(id: #{shoes.id}) {
-              name
-              products(name: "Otwarty nosek") {
+      it "scenario_3" do
+        query =
+          %(query {
+              productCategory(id: #{shoes.id}) {
                 name
-                productVariants {
-                  label
+                products(name: "Open nose") {
+                  name
+                  productVariants {
+                    label
+                  }
                 }
               }
-            }
-          })
+            })
       
-      post "/graphql", params: { query: query }
+        post "/graphql", params: { query: query }
 
-      result = JSON.parse(response.body)
+        result = JSON.parse(response.body)
 
-      expect(result["data"]).to be_present
-      expect(result.dig("data", "productCategory")).to be_present
-      expect(result.dig("data", "productCategory", "products")).to be_present
-      variants = result.dig("data", "productCategory", "products").flat_map { |product| product["productVariants"] }
-      expect(variants).to be_present
-      labels = variants.flat_map { |variant| variant["label"] } 
-      expect(labels).to match_array(["white", "black"])
+        expect(result["data"]).to be_present
+        expect(result.dig("data", "productCategory")).to be_present
+        expect(result.dig("data", "productCategory", "products")).to be_present
+        variants = result.dig("data", "productCategory", "products").flat_map { |product| product["productVariants"] }
+        expect(variants).to be_present
+        labels = variants.flat_map { |variant| variant["label"] } 
+        expect(labels).to match_array(["white", "black"])
+      end
 
-      # todo:
+      # TODO:
       # pagination
       # filters
       # operation name
@@ -142,12 +139,12 @@ RSpec.describe "graphql training", type: :request do
       # https://graphql.org/learn/queries
     end
 
-    it "mutations" do
-      cart = Cart.create!(number_of_items: 0)
-      shoes = ProductCategory.create!(name: "Shoes")
-      otwarty_nosek = Product.create!(name: "Otwarty nosek", price_cents: 1, product_category: shoes)
-      black_variant = ProductVariant.create!(variant_type: "color", value: "000000", label: "black", product: otwarty_nosek)
-      white_variant = ProductVariant.create!(variant_type: "color", value: "ffffff", label: "white", product: otwarty_nosek)
+    context "mutations" do
+      let!(:cart) { Cart.create!(number_of_items: 0) }
+      let(:shoes) { ProductCategory.create!(name: "Shoes") }
+      let!(:open_nose) { Product.create!(name: "Open nose", price_cents: 1, product_category: shoes) }
+      let!(:black_variant) { ProductVariant.create!(variant_type: "color", value: "000000", label: "black", product: open_nose) }
+      let!(:white_variant) { ProductVariant.create!(variant_type: "color", value: "ffffff", label: "white", product: open_nose) }
 
       ## Scenario 100012 - simple create.
       #
@@ -157,35 +154,38 @@ RSpec.describe "graphql training", type: :request do
       # - mutations that create records
       #
       # Instructions:
-      # todo
+      # TODO
       # - g-search "scenario_100012"
 
-      expect(CartItem.count).to eq 0
-
-      query = %(
-        mutation {
-          createCartItem(input: {productId: #{otwarty_nosek.id},
-                                productVariantId: #{white_variant.id},
-                                quantity: 2} ) {
-            cartItem {
-              id
-              quantity
-              productVariant {
-                id
+      it "scenario_100012" do
+        query = %(
+          mutation {
+            createCartItem(
+              input: {
+                productId: #{open_nose.id},
+                productVariantId: #{white_variant.id},
+                quantity: 2
               }
+            ) {
+              cartItem {
+                id
+                quantity
+                productVariant {
+                  id
+                }
+              }
+              errors
             }
-            errors
-          }
-        }
-        )
+          })
 
-      post "/graphql", params: { query: query }
+        post "/graphql", params: { query: query }
 
-      expect(CartItem.count).to eq 1
-      cart_item = CartItem.first!
-      expect(cart_item.product).to eq otwarty_nosek
-      expect(cart_item.product_variant).to eq white_variant
-      expect(cart_item.quantity).to eq 2
+        expect(CartItem.count).to eq 1
+        cart_item = CartItem.first!
+        expect(cart_item.product).to eq open_nose
+        expect(cart_item.product_variant).to eq white_variant
+        expect(cart_item.quantity).to eq 2
+      end
 
       ## Scenario 4543 - simple update.
       #
@@ -195,25 +195,32 @@ RSpec.describe "graphql training", type: :request do
       # - mutations that update records
       #
       # Instructions:
-      # todo
+      # TODO
       # - g-search "scenario_4543"
 
-      query = %(
-          mutation {
-            updateCartItem(input: {id: #{cart_item.id},
-                                  quantity: 4 } ) {
-              cartItem {
-                id
-                quantity
+      it "scenario_4543" do
+        cart_item = CartItem.create!(quantity: 1, product: open_nose, product_variant: white_variant, cart: cart )
+
+        query = %(
+            mutation {
+              updateCartItem(
+                input: {
+                  id: #{cart_item.id},
+                  quantity: 4
+                }
+              ) {
+                cartItem {
+                  id
+                  quantity
+                }
+                errors
               }
-              errors
-            }
-          })
+            })
 
-      post "/graphql", params: { query: query }
+        post "/graphql", params: { query: query }
 
-      cart_item.reload
-      expect(cart_item.quantity).to eq 4
+        expect(cart_item.reload.quantity).to eq 4
+      end
 
       ## Scenario 494567 - simple destroy.
       #
@@ -223,23 +230,31 @@ RSpec.describe "graphql training", type: :request do
       # - mutations that destroy records
       #
       # Instructions:
-      # todo
+      # TODO
       # - g-search "scenario_494567"
 
-      query = %(
-          mutation {
-            destroyCartItem(input: {id: #{cart_item.id}} ) {
-              errors
-            }
-          })
+      it "scenario_494567" do
+        cart_item = CartItem.create!(quantity: 1, product: open_nose, product_variant: white_variant, cart: cart )
 
-      post "/graphql", params: { query: query }
+        query = %(
+            mutation {
+              destroyCartItem(
+                input: {
+                  id: #{cart_item.id}
+                }
+              ) {
+                errors
+              }
+            })
 
-      expect(CartItem.count).to eq 0
+        post "/graphql", params: { query: query }
+
+        expect(CartItem.count).to eq 0
+      end
     end
 
     context "testing" do
-      # todo: https://graphql-ruby.org/testing/overview.html
+      # TODO: https://graphql-ruby.org/testing/overview.html
     end
   end
 
