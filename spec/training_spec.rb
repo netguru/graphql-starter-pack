@@ -116,9 +116,12 @@ RSpec.describe "graphql training", type: :request do
 
       result = JSON.parse(response.body)
 
-      labels = result.dig("data", "productCategory", "products")
-                    .flat_map { |product| product["productVariants"] }
-                    .flat_map { |variant| variant["label"] } 
+      expect(result["data"]).to be_present
+      expect(result.dig("data", "productCategory")).to be_present
+      expect(result.dig("data", "productCategory", "products")).to be_present
+      variants = result.dig("data", "productCategory", "products").flat_map { |product| product["productVariants"] }
+      expect(variants).to be_present
+      labels = variants.flat_map { |variant| variant["label"] } 
       expect(labels).to match_array(["white", "black"])
 
       # todo:
@@ -147,6 +150,8 @@ RSpec.describe "graphql training", type: :request do
       # todo
       # - g-search "scenario_100012"
 
+      expect(CartItem.count).to eq 0
+
       query = %(
         mutation {
           createCartItem(input: {productId: #{otwarty_nosek.id},
@@ -163,8 +168,6 @@ RSpec.describe "graphql training", type: :request do
           }
         }
         )
-
-      expect(CartItem.count).to eq 0
 
       post "/graphql", params: { query: query }
 
