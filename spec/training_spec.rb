@@ -3,27 +3,6 @@
 require "rails_helper"
 
 RSpec.describe "graphql training", type: :request do
-  ## What am I doing here?
-  #
-  # You will learn some graphql.
-  # Your training is spit into multiple scenarios. All scenarios are in this file (training_spec.rb).
-  # But solving a scenario will require you to visit other places in this application.
-  # You must solve scenarios in order starting with scenario 1. When you start a scenario it's tests will be failing.
-  # Follow particular scenario instructions add/change application code to make the tests pass.
-  # When all scenario tests pass the scenario is done and you can procceed to the next one.
-  # 
-  #
-  ## What is graphql?
-  #
-  # GraphQL is a query language for your API, and a server-side runtime for executing queries by using a type system
-  # you define for your data. GraphQL isn't tied to any specific database or storage engine
-  # and is instead backed by your existing code and data.
-  #
-  ## Literature
-  # https://graphql.org/learn/
-  # https://graphql-ruby.org/guides
-  # 
-
   # TODO: 1. Write all scenarios.
   #
   # TODO: 2. Make sure all topics are covered:
@@ -34,7 +13,7 @@ RSpec.describe "graphql training", type: :request do
   # graphql-batch.
   # authentication
   #
-  # TODO: 3. Comment out application code and mark with labels like: scenario_1
+  # TODO: 3. Write instructions for scenarios. Comment out application code and mark with labels like: scenario_1
 
   context "basic" do
     context "queries" do
