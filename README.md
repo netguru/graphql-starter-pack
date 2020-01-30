@@ -35,6 +35,7 @@ you define for your data. GraphQL isn't tied to any specific database or storage
 and is instead backed by your existing code and data.
 
 # Literature
- https://graphql.org/learn/
- https://graphql-ruby.org/guides
+https://graphql.org/learn/
+https://graphql-ruby.org/guides
+https://github.com/Shopify/graphql-batch
    

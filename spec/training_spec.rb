@@ -13,7 +13,8 @@ RSpec.describe "graphql training", type: :request do
   # graphql-batch.
   # authentication
   #
-  # TODO: 3. Write instructions for scenarios. Comment out application code and mark with labels like: scenario_1
+  # TODO: 3. Only do this after all scenarios are written.
+  # Write instructions for scenarios. Comment out application code and mark with labels like: scenario_1
 
   context "basic" do
     context "queries" do
@@ -239,9 +240,58 @@ RSpec.describe "graphql training", type: :request do
 
   context "advanced" do
     context "optimizing queries" do
+      let(:shoes) { ProductCategory.create!(name: "Shoes") }
+      let(:open_nose) { Product.create!(name: "Open nose", price_cents: 1, product_category: shoes) }
+      let(:flat) { Product.create!(name: "Flat", price_cents: 1, product_category: shoes) }
+      let(:track) { Product.create!(name: "Track", price_cents: 1, product_category: shoes) }
+      let!(:white_variant) { ProductVariant.create!(variant_type: "color", value: "ffffff", label: "white", product: open_nose) }
+      let!(:black_variant) { ProductVariant.create!(variant_type: "color", value: "000000", label: "black", product: open_nose) }
+      let!(:red_variant) { ProductVariant.create!(variant_type: "color", value: "000fff", label: "red", product: flat) }
+      let!(:violet_variant) { ProductVariant.create!(variant_type: "color", value: "fff000", label: "violet", product: flat) }
+      let!(:grey_variant) { ProductVariant.create!(variant_type: "color", value: "f0000f", label: "grey", product: track) }
+
+      ## Scenario 9635 - fix n+1 on querying associated records.
+      #
+      # Graphql default strategy for querying will result in n+1 queries in some cases.
+      # You will optimize the querying strategy for a case of associated records in this scenario.
+      #
+      # You will learn:
+      # - graph-batch gem and AssociationLoader pattern
+      #
+      # Instructions:
+      # TODO
+      # - g-search "scenario_9635"
+
       it "graphql-batch" do
-        # https://github.com/Shopify/graphql-batch
-        pending
+        query =
+          %(query {
+              products {
+                name
+                productVariants {
+                  label
+                }
+              }
+            })
+      
+        number_of_sql_queries = 0
+        counter = lambda do |*args|
+          number_of_sql_queries = number_of_sql_queries + 1
+          puts args[4][:sql]
+        end
+        ActiveSupport::Notifications.subscribed(counter, "sql.active_record") do
+          post "/graphql", params: { query: query }
+        end
+
+        result = JSON.parse(response.body)
+
+        expect(result["data"]).to be_present
+        expect(result.dig("data", "products")).to be_present
+        products = result.dig("data", "products")
+        variants = products.flat_map { |product| product["productVariants"] }
+        expect(variants).to be_present
+        labels = variants.flat_map { |variant| variant["label"] } 
+        expect(labels).to match_array(["white", "black", "red", "violet", "grey"])
+        expect(number_of_sql_queries).to eq 2
       end
 
       it "DataLoader" do
@@ -252,13 +302,25 @@ RSpec.describe "graphql training", type: :request do
     end
 
     context "auth" do
-      # https://graphql-ruby.org/authorization/overview.html
-      # js seems involved: https://graphql.org/learn/authorization/
+      ## Scenario 6784 - authentication options.
+      #
+      # Graphql does not provide any solution for authentication. Just use devise current_user.
+      # https://graphql-ruby.org/authorization/overview.html#what-about-authentication
+      #
+      # You will learn:
+      # - authentication options.
+      #
+      # Instructions:
+      # TODO
+      # - g-search "scenario_6784"
 
       it "authentication" do
-        pending
+        i_will_use_devise_for_authentication = true
+        expect(i_will_use_devise_for_authentication).to be true
       end
 
+      # https://graphql-ruby.org/authorization/overview.html
+      # js seems involved: https://graphql.org/learn/authorization/
       it "authorization" do
         pending
       end
