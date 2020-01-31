@@ -235,8 +235,24 @@ RSpec.describe "graphql training", type: :request do
       end
     end
 
+    ## Scenario 9673 - testing, make sure schema diff is present in PR.
+    #
+    # It is possible to generate a schema for graphql queries and mutations. Since any changes to this schema
+    # could break clients queries it is a good practice to have a graphql schema diff in PRs.
+    #
+    # You will learn:
+    # - Generating graphql schema with a rake task.
+    #
+    # Instructions:
+    # TODO
+    # - g-search "scenario_9673"
+
     context "testing" do
-      # TODO: https://graphql-ruby.org/testing/overview.html
+      it "is graphql schema updated?" do
+        current_schema = FashionStoreSchema.to_definition
+        schema_archive = File.read(Rails.root.join("app/graphql/schema.graphql")) rescue nil
+        expect(current_schema).to eq(schema_archive), "Update the graphql schema with `bundle exec rake dump_graphql_schema`"
+      end
     end
   end
 
