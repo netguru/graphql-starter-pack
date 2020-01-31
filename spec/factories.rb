@@ -18,8 +18,14 @@ FactoryBot.define do
     product
   end
 
+  factory :user do
+    sequence(:email) { |n| "user_#{n}@email.com" }
+    password { "123456" }
+  end
+
   factory :cart do
     number_of_items { 1 }
+    user
   end
 
   factory :cart_item do
