@@ -30,6 +30,8 @@ gem 'money-rails', '~>1.12'
 
 gem 'rubocop', require: false
 
+gem 'devise'
+
 group :development do
   gem 'graphiql-rails'
   gem 'listen', '>= 3.0.5', '< 3.2'
