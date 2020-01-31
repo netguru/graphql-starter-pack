@@ -120,7 +120,8 @@ RSpec.describe "graphql training", type: :request do
     end
 
     context "mutations" do
-      let!(:cart) { Cart.create!(number_of_items: 0) }
+      let(:user) { create :user }
+      let!(:cart) { Cart.create!(number_of_items: 0, user: user) }
       let(:shoes) { ProductCategory.create!(name: "Shoes") }
       let!(:open_nose) { Product.create!(name: "Open nose", price_cents: 1, product_category: shoes) }
       let!(:black_variant) { ProductVariant.create!(variant_type: "color", value: "000000", label: "black", product: open_nose) }
@@ -308,15 +309,24 @@ RSpec.describe "graphql training", type: :request do
       # https://graphql-ruby.org/authorization/overview.html#what-about-authentication
       #
       # You will learn:
-      # - authentication options.
+      # - How a graphql query can access current user.
       #
       # Instructions:
       # TODO
       # - g-search "scenario_6784"
 
       it "authentication" do
-        i_will_use_devise_for_authentication = true
-        expect(i_will_use_devise_for_authentication).to be true
+        user = User.create!(email: "user@email.com", password: "123456")
+        sign_in user
+
+        allow(FashionStoreSchema).to receive(:execute) do |*args|
+          current_user = args[1][:context][:current_user]
+          expect(current_user).to eq user
+        end
+
+        post "/graphql"
+
+        expect(FashionStoreSchema).to have_received(:execute).once
       end
 
       # https://graphql-ruby.org/authorization/overview.html
