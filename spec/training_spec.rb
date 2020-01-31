@@ -159,6 +159,7 @@ RSpec.describe "graphql training", type: :request do
             }
           })
 
+        sign_in user
         post "/graphql", params: { query: query }
 
         expect(CartItem.count).to eq 1
@@ -277,7 +278,7 @@ RSpec.describe "graphql training", type: :request do
         number_of_sql_queries = 0
         counter = lambda do |*args|
           number_of_sql_queries = number_of_sql_queries + 1
-          puts args[4][:sql]
+          # puts args[4][:sql]
         end
         ActiveSupport::Notifications.subscribed(counter, "sql.active_record") do
           post "/graphql", params: { query: query }
@@ -329,10 +330,80 @@ RSpec.describe "graphql training", type: :request do
         expect(FashionStoreSchema).to have_received(:execute).once
       end
 
-      # https://graphql-ruby.org/authorization/overview.html
-      # js seems involved: https://graphql.org/learn/authorization/
-      it "authorization" do
-        pending
+      context "authorization" do
+        let!(:rick) { User.create!(email: "rick@email.com", password: "123456") }
+        let!(:morty) { User.create!(email: "morty@email.com", password: "123456") }
+        let!(:cart) { Cart.create!(number_of_items: 0, user: rick) }
+        let(:shoes) { ProductCategory.create!(name: "Shoes") }
+        let!(:open_nose) { Product.create!(name: "Open nose", price_cents: 1, product_category: shoes) }
+        let!(:black_variant) { ProductVariant.create!(variant_type: "color", value: "000000", label: "black", product: open_nose) }
+        let!(:white_variant) { ProductVariant.create!(variant_type: "color", value: "ffffff", label: "white", product: open_nose) }
+
+        context "mutations" do
+          ## Scenario 77865 - authorization for a mutation.
+          #
+          # Allowing/disallowing a query based on user permissions.
+          #
+          # You will learn:
+          # - How to authorize a mutatuon.
+          #
+          # Instructions:
+          # TODO
+          # - g-search "scenario_77865"
+
+          it "cant add item to another's user cart" do
+            sign_in morty
+
+            query = %(
+              mutation {
+                createCartItem(
+                  input: {
+                    productId: #{open_nose.id},
+                    productVariantId: #{white_variant.id},
+                    quantity: 2
+                  }
+                ) {
+                  errors
+                }
+              })
+
+            post "/graphql", params: { query: query }
+
+            expect(CartItem.count).to eq 0
+            expect(response). to have_http_status(401)
+          end
+        end
+
+        context "queries" do
+          ## Scenario 88876 - authorization for a query.
+          #
+          # Allowing/disallowing a query based on user permissions.
+          #
+          # You will learn:
+          # - How to authorize a query.
+          #
+          # Instructions:
+          # TODO
+          # - g-search "scenario_88876"
+
+          it "cant query another user's cart items" do
+            query =
+              %(query {
+                  cartItems(cartId: #{cart.id}) {
+                    product {
+                      name
+                    }
+                  }
+                })
+      
+            post "/graphql", params: { query: query }
+
+            result = JSON.parse(response.body)
+
+            expect(result["data"]).to be_empty
+            expect(response). to have_http_status(401)
+          end
+        end
       end
     end
   end

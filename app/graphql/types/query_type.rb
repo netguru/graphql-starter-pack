@@ -38,7 +38,9 @@ module Types
     field :cart_items,
           [Types::CartItemType],
           null: false,
-          description: "Return list of cart_items"
+          description: "Return list of cart_items" do
+            argument :cart_id, ID, required: false
+          end
 
     field :product_categories,
           [Types::ProductCategoryType],
@@ -64,8 +66,19 @@ module Types
       Cart.first
     end
 
-    def cart_items
-      CartItem.all
+    def cart_items(cart_id: nil)
+
+      if cart_id.nil?
+        CartItem.all
+      else
+        current_user = context[:current_user]
+
+        cart = Cart.find cart_id
+
+        Authorization.authorize("read_cart_items", { cart: cart, current_user: current_user })
+
+        cart.cart_items
+      end
     end
 
     def cart_item(id:)
