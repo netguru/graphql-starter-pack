@@ -98,6 +98,12 @@ RSpec.describe "graphql training", type: :request do
         labels = variants.flat_map { |variant| variant["label"] } 
         expect(labels).to match_array(["white", "black"])
       end
+
+      # TODO:
+      # pagination
+      # operation name
+      # variables
+      # https://graphql.org/learn/queries
     end
 
     context "mutations" do
@@ -286,6 +292,13 @@ RSpec.describe "graphql training", type: :request do
         labels = variants.flat_map { |variant| variant["label"] } 
         expect(labels).to match_array(["white", "black", "red", "violet", "grey"])
         expect(number_of_sql_queries).to eq 2
+      end
+
+      # TODO:
+      it "DataLoader" do
+        # https://www.youtube.com/watch?v=OQTnXNCDywA
+        # https://github.com/graphql/dataloader
+        pending
       end
     end
 
