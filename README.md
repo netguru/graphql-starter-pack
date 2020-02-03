@@ -27,9 +27,11 @@ When all scenario tests pass the scenario is done and you can procceed to the ne
 
 ## Where do I start?
 Start by making a working branch for yourself
+
 `git checkout -b my_graphql_training`
 
 Then open spec/training_spec.rb file and start with scenario_1
+
 `docker-compose run --rm web rspec spec/training_spec.rb`
  
 ## What is graphql?
