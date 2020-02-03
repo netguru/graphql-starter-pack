@@ -20,10 +20,8 @@ class GraphqlController < ApplicationController
   end
   
  # scenario_9
- # query = params[:query]
  # context = { current_user: current_user }
  # result = FashionStoreSchema.execute(query, context: context)
- # render json: result
 
   private
 

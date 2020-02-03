@@ -139,7 +139,6 @@ RSpec.describe "graphql training", type: :request do
             }
           })
 
-        sign_in user
         post "/graphql", params: { query: query }
 
         expect(CartItem.count).to eq 1
