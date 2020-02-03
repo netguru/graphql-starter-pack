@@ -11,18 +11,19 @@ class GraphqlController < ApplicationController
   end
 
   def execute
-    variables = ensure_hash(params[:variables])
-    query = params[:query]
-    operation_name = params[:operationName]
-    context = {
-      current_user: current_user
-    }
-    result = FashionStoreSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
-    render json: result
-  
+    # scenario_1
+    # query = params[:query]
+    # result = FashionStoreSchema.execute(query)
+    # render json: result
   rescue StandardError => e
     handle_error e
   end
+  
+ # scenario_9
+ # query = params[:query]
+ # context = { current_user: current_user }
+ # result = FashionStoreSchema.execute(query, context: context)
+ # render json: result
 
   private
 

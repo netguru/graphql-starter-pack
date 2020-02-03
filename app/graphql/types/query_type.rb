@@ -1,100 +1,49 @@
 # frozen_string_literal: true
 
-module Types
-  class QueryType < Types::BaseObject
-    field :products,
-          [Types::ProductType],
-          null: false,
-          description: "Returns a list of products in fashion store"
+# scenario_1
+# module Types
+#   class QueryType < Types::BaseObject
+#     field :products,
+#           [Types::ProductType],
+#           null: false,
+#           description: "Returns a list of products in fashion store"
+# 
+#     def products
+#       Product.all
+#     end
+#   end
+# end
 
-    field :product,
-          Types::ProductType,
-          null: false,
-          description: "Return product by ID" do
-            argument :id, ID, required: true
-          end
+# scenario_3
+# field :product_category,
+#       Types::ProductCategoryType,
+#       null: false,
+#       description: "Return product category by ID" do
+#         argument :id, ID, required: true
+#       end
+# 
+# def product_category(id:)
+#   ProductCategory.find(id)
+# end
 
-    field :all_products, function: Resolvers::ProductSearch
-
-    field :carts,
-          [Types::CartType],
-          null: false,
-          description: "Returns a list of carts"
-
-    field :cart,
-          Types::CartType,
-          null: false,
-          description: "Return cart by ID" do
-            argument :id, ID, required: true
-          end
-
-    field :cart_item,
-          Types::CartItemType,
-          null: false,
-          description: "Return cart item by ID" do
-            argument :id, ID, required: true
-          end
-
-    field :cart_items,
-          [Types::CartItemType],
-          null: false,
-          description: "Return list of cart_items" do
-            argument :cart_id, ID, required: false
-          end
-
-    field :product_categories,
-          [Types::ProductCategoryType],
-          null: false,
-          description: "Returns a list of categories in fashion store"
-
-    field :product_category,
-          Types::ProductCategoryType,
-          null: false,
-          description: "Return product category by ID" do
-            argument :id, ID, required: true
-          end
-
-    def products
-      Product.all
-    end
-
-    def carts
-      Cart.all
-    end
-
-    def cart(id:)
-      Cart.first
-    end
-
-    def cart_items(cart_id: nil)
-
-      if cart_id.nil?
-        CartItem.all
-      else
-        current_user = context[:current_user]
-
-        cart = Cart.find cart_id
-
-        Authorization.authorize("read_cart_items", { cart: cart, current_user: current_user })
-
-        cart.cart_items
-      end
-    end
-
-    def cart_item(id:)
-      CartItem.find(id)
-    end
-
-    def product(id:)
-      Product.find(id)
-    end
-
-    def product_categories
-      ProductCategory.all
-    end
-
-    def product_category(id:)
-      ProductCategory.find(id)
-    end
-  end
-end
+# scenario_11
+# field :cart_items,
+#       [Types::CartItemType],
+#       null: false,
+#       description: "Return list of cart_items" do
+#         argument :cart_id, ID, required: false
+#       end
+# 
+# def cart_items(cart_id: nil)
+#   if cart_id.nil?
+#     CartItem.all
+#   else
+#     current_user = context[:current_user]
+# 
+#     cart = Cart.find cart_id
+# 
+#     Authorization.authorize("read_cart_items", { cart: cart, current_user: current_user })
+# 
+#     cart.cart_items
+#   end
+# end

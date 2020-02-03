@@ -3,19 +3,6 @@
 require "rails_helper"
 
 RSpec.describe "graphql training", type: :request do
-  # TODO: 1. Write all scenarios.
-  #
-  # TODO: 2. Make sure all topics are covered:
-  # Types & relations
-  # Mutations (create, update, delete)
-  # Filters
-  # Testing
-  # graphql-batch.
-  # authentication
-  #
-  # TODO: 3. Only do this after all scenarios are written.
-  # Write instructions for scenarios. Comment out application code and mark with labels like: scenario_1
-
   context "basic" do
     context "queries" do
       let(:shoes) { ProductCategory.create!(name: "Shoes") }
@@ -31,12 +18,11 @@ RSpec.describe "graphql training", type: :request do
       # You will learn:
       # - Graphql schema
       # - Query type
-      # - Model type
+      # - BaseObject type
       # - Fields
       #
       # Instructions:
-      # TODO: comment out application code and mark with label "scenario_1"
-      # g-search "scenario_1"
+      # - g-search scenario_1
 
       it "scenario_1" do
         query = 
@@ -64,10 +50,13 @@ RSpec.describe "graphql training", type: :request do
       # - graphiql tool 
       #
       # Instructions:
-      # - go to http://localhost:3000/graphiql and query "{ products { name } }" .
+      # - g-search scenario_2
+      # - run `docker-compose up`
+      # - go to http://localhost:3000/graphiql
+      # - query `{ products { name } }` .
 
       it "scenario_2" do
-        graphiql_works_for_me = true
+        graphiql_works_for_me = false
         expect(graphiql_works_for_me).to be true
       end
 
@@ -81,7 +70,6 @@ RSpec.describe "graphql training", type: :request do
       # - Arguments
       #
       # Instructions:
-      # TODO 
       # g-search "scenario_3"
 
       it "scenario_3" do
@@ -110,13 +98,6 @@ RSpec.describe "graphql training", type: :request do
         labels = variants.flat_map { |variant| variant["label"] } 
         expect(labels).to match_array(["white", "black"])
       end
-
-      # TODO:
-      # pagination
-      # filters
-      # operation name
-      # variables
-      # https://graphql.org/learn/queries
     end
 
     context "mutations" do
@@ -127,7 +108,7 @@ RSpec.describe "graphql training", type: :request do
       let!(:black_variant) { ProductVariant.create!(variant_type: "color", value: "000000", label: "black", product: open_nose) }
       let!(:white_variant) { ProductVariant.create!(variant_type: "color", value: "ffffff", label: "white", product: open_nose) }
 
-      ## Scenario 100012 - simple create.
+      ## Scenario 4 - simple create.
       #
       # For creating a record you need to write a mutation.
       #
@@ -135,15 +116,14 @@ RSpec.describe "graphql training", type: :request do
       # - mutations that create records
       #
       # Instructions:
-      # TODO
-      # - g-search "scenario_100012"
+      # - g-search scenario_4
 
-      it "scenario_100012" do
+      it "scenario_4" do
         query = %(
           mutation {
             createCartItem(
               input: {
-                productId: #{open_nose.id},
+                cartId: #{cart.id},
                 productVariantId: #{white_variant.id},
                 quantity: 2
               }
@@ -169,7 +149,7 @@ RSpec.describe "graphql training", type: :request do
         expect(cart_item.quantity).to eq 2
       end
 
-      ## Scenario 4543 - simple update.
+      ## Scenario 5 - simple update.
       #
       # To update a record you need to write a mutation.
       #
@@ -177,10 +157,9 @@ RSpec.describe "graphql training", type: :request do
       # - mutations that update records
       #
       # Instructions:
-      # TODO
-      # - g-search "scenario_4543"
+      # - g-search scenario_5
 
-      it "scenario_4543" do
+      it "scenario_5" do
         cart_item = CartItem.create!(quantity: 1, product: open_nose, product_variant: white_variant, cart: cart )
 
         query = %(
@@ -204,7 +183,7 @@ RSpec.describe "graphql training", type: :request do
         expect(cart_item.reload.quantity).to eq 4
       end
 
-      ## Scenario 494567 - simple destroy.
+      ## Scenario 6 - simple destroy.
       #
       # To destroy a record you need to write a mutation.
       #
@@ -212,10 +191,9 @@ RSpec.describe "graphql training", type: :request do
       # - mutations that destroy records
       #
       # Instructions:
-      # TODO
-      # - g-search "scenario_494567"
+      # - g-search scenario_6
 
-      it "scenario_494567" do
+      it "scenario_6" do
         cart_item = CartItem.create!(quantity: 1, product: open_nose, product_variant: white_variant, cart: cart )
 
         query = %(
@@ -235,7 +213,7 @@ RSpec.describe "graphql training", type: :request do
       end
     end
 
-    ## Scenario 9673 - testing, make sure schema diff is present in PR.
+    ## Scenario 7 - testing, make sure schema diff is present in PR.
     #
     # It is possible to generate a schema for graphql queries and mutations. Since any changes to this schema
     # could break clients queries it is a good practice to have a graphql schema diff in PRs.
@@ -244,8 +222,8 @@ RSpec.describe "graphql training", type: :request do
     # - Generating graphql schema with a rake task.
     #
     # Instructions:
-    # TODO
-    # - g-search "scenario_9673"
+    # - g-search scenario_7
+    # - run `docker-compose run --rm web rake dump_graphql_schema`
 
     context "testing" do
       it "is graphql schema updated?" do
@@ -268,7 +246,7 @@ RSpec.describe "graphql training", type: :request do
       let!(:violet_variant) { ProductVariant.create!(variant_type: "color", value: "fff000", label: "violet", product: flat) }
       let!(:grey_variant) { ProductVariant.create!(variant_type: "color", value: "f0000f", label: "grey", product: track) }
 
-      ## Scenario 9635 - fix n+1 on querying associated records.
+      ## Scenario 8 - fix n+1 on querying associated records.
       #
       # Graphql default strategy for querying will result in n+1 queries in some cases.
       # You will optimize the querying strategy for a case of associated records in this scenario.
@@ -277,8 +255,7 @@ RSpec.describe "graphql training", type: :request do
       # - graph-batch gem and AssociationLoader pattern
       #
       # Instructions:
-      # TODO
-      # - g-search "scenario_9635"
+      # - g-search scenario_8
 
       it "graphql-batch" do
         query =
@@ -311,39 +288,31 @@ RSpec.describe "graphql training", type: :request do
         expect(labels).to match_array(["white", "black", "red", "violet", "grey"])
         expect(number_of_sql_queries).to eq 2
       end
-
-      it "DataLoader" do
-        # https://www.youtube.com/watch?v=OQTnXNCDywA
-        # https://github.com/graphql/dataloader
-        pending
-      end
     end
 
     context "auth" do
-      ## Scenario 6784 - authentication options.
+      ## Scenario 9 - authentication options.
       #
       # Graphql does not provide any solution for authentication. Just use devise current_user.
-      # https://graphql-ruby.org/authorization/overview.html#what-about-authentication
       #
       # You will learn:
       # - How a graphql query can access current user.
       #
       # Instructions:
-      # TODO
-      # - g-search "scenario_6784"
+      # - g-search scenario_9
 
       it "authentication" do
         user = User.create!(email: "user@email.com", password: "123456")
         sign_in user
 
+        current_user_in_context = nil
         allow(FashionStoreSchema).to receive(:execute) do |*args|
-          current_user = args[1][:context][:current_user]
-          expect(current_user).to eq user
+          current_user_in_context = args[1][:context][:current_user]
         end
 
         post "/graphql"
 
-        expect(FashionStoreSchema).to have_received(:execute).once
+        expect(current_user_in_context).to eq user
       end
 
       context "authorization" do
@@ -356,7 +325,7 @@ RSpec.describe "graphql training", type: :request do
         let!(:white_variant) { ProductVariant.create!(variant_type: "color", value: "ffffff", label: "white", product: open_nose) }
 
         context "mutations" do
-          ## Scenario 77865 - authorization for a mutation.
+          ## Scenario 10 - authorization for a mutation.
           #
           # Allowing/disallowing a query based on user permissions.
           #
@@ -364,8 +333,7 @@ RSpec.describe "graphql training", type: :request do
           # - How to authorize a mutatuon.
           #
           # Instructions:
-          # TODO
-          # - g-search "scenario_77865"
+          # - g-search scenario_10
 
           it "cant add item to another's user cart" do
             sign_in morty
@@ -374,7 +342,7 @@ RSpec.describe "graphql training", type: :request do
               mutation {
                 createCartItem(
                   input: {
-                    productId: #{open_nose.id},
+                    cartId: #{cart.id},
                     productVariantId: #{white_variant.id},
                     quantity: 2
                   }
@@ -391,7 +359,7 @@ RSpec.describe "graphql training", type: :request do
         end
 
         context "queries" do
-          ## Scenario 88876 - authorization for a query.
+          ## Scenario 11 - authorization for a query.
           #
           # Allowing/disallowing a query based on user permissions.
           #
@@ -399,8 +367,7 @@ RSpec.describe "graphql training", type: :request do
           # - How to authorize a query.
           #
           # Instructions:
-          # TODO
-          # - g-search "scenario_88876"
+          # - g-search scenario_11
 
           it "cant query another user's cart items" do
             query =
