@@ -15,15 +15,13 @@ class GraphqlController < ApplicationController
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      # Query context goes here, for example:
-      # current_user: current_user,
+      current_user: current_user
     }
     result = FashionStoreSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
+  
   rescue StandardError => e
-    raise e unless Rails.env.development?
-
-    handle_error_in_development e
+    handle_error e
   end
 
   private
@@ -46,10 +44,18 @@ class GraphqlController < ApplicationController
     end
   end
 
-  def handle_error_in_development(err)
-    logger.error err.message
-    logger.error err.backtrace.join(" ")
+  def handle_error(err)
+    if Rails.env.development?
+      logger.error err.message
+      logger.error err.backtrace.join(" ")
+    end
 
-    render json: {error: {message: err.message}, data: {}}, status: 500
+    if err.is_a?(Authorization::Error)
+      status = 401
+    else
+      status = 500
+    end
+
+    render json: {error: {message: err.message}, data: {}}, status: status
   end
 end

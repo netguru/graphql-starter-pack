@@ -13,6 +13,8 @@ module Types
       RecordLoader.for(ProductCategory).load(object.product_category_id)
     end
 
+    # TODO: decide whether to use pure graphql-batch or the AssociationsLoader extenssion?
+    # AssociationLoader docs: https://github.com/Shopify/graphql-batch
     def product_variants
       AssociationLoader.for(Product, :product_variants).load(object)
     end
