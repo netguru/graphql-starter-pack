@@ -226,7 +226,7 @@ RSpec.describe "graphql training", type: :request do
     # - run `docker-compose run --rm web rake dump_graphql_schema`
 
     context "testing" do
-      it "is graphql schema updated?" do
+      it "scenario_7" do
         current_schema = FashionStoreSchema.to_definition
         schema_archive = File.read(Rails.root.join("app/graphql/schema.graphql")) rescue nil
         expect(current_schema).to eq(schema_archive), "Update the graphql schema with `bundle exec rake dump_graphql_schema`"
@@ -257,7 +257,7 @@ RSpec.describe "graphql training", type: :request do
       # Instructions:
       # - g-search scenario_8
 
-      it "graphql-batch" do
+      it "scenario_8" do
         query =
           %(query {
               products {
@@ -301,7 +301,7 @@ RSpec.describe "graphql training", type: :request do
       # Instructions:
       # - g-search scenario_9
 
-      it "authentication" do
+      it "scenario_9" do
         user = User.create!(email: "user@email.com", password: "123456")
         sign_in user
 
@@ -325,7 +325,7 @@ RSpec.describe "graphql training", type: :request do
         let!(:white_variant) { ProductVariant.create!(variant_type: "color", value: "ffffff", label: "white", product: open_nose) }
 
         context "mutations" do
-          ## Scenario 10 - authorization for a mutation.
+          ## Scenario 10 - cant add item to another's user cart.
           #
           # Allowing/disallowing a query based on user permissions.
           #
@@ -335,7 +335,7 @@ RSpec.describe "graphql training", type: :request do
           # Instructions:
           # - g-search scenario_10
 
-          it "cant add item to another's user cart" do
+          it "scenario_10" do
             sign_in morty
 
             query = %(
@@ -359,7 +359,7 @@ RSpec.describe "graphql training", type: :request do
         end
 
         context "queries" do
-          ## Scenario 11 - authorization for a query.
+          ## Scenario 11 - cant query another user's cart items.
           #
           # Allowing/disallowing a query based on user permissions.
           #
@@ -369,7 +369,7 @@ RSpec.describe "graphql training", type: :request do
           # Instructions:
           # - g-search scenario_11
 
-          it "cant query another user's cart items" do
+          it "scenario_11" do
             query =
               %(query {
                   cartItems(cartId: #{cart.id}) {
