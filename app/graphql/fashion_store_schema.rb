@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
-class FashionStoreSchema < GraphQL::Schema
-  query(Types::QueryType)
-  mutation(Types::MutationType)
+# scenario_1
+# class FashionStoreSchema < GraphQL::Schema
+#  query(Types::QueryType)
+# end
 
-  GraphQL::Batch.use(self)
-end
+# scenario_4
+# mutation(Types::MutationType)
+
+# scenario_8
+# GraphQL::Batch.use(self)
