@@ -26,9 +26,11 @@ Follow particular scenario instructions add/change application code to make the 
 When all scenario tests pass the scenario is done and you can procceed to the next one.
 
 ## Where do I start?
-Start by making a working branch for yourself `git checkout -b my_graphql_training`
+Start by making a working branch for yourself
+`git checkout -b my_graphql_training`
 
 Then open spec/training_spec.rb file and start with scenario_1
+`docker-compose run --rm web rspec spec/training_spec.rb`
  
 ## What is graphql?
 GraphQL is a query language for your API, and a server-side runtime for executing queries by using a type system
