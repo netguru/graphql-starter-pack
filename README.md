@@ -15,30 +15,27 @@ You can use [graphiql](http://localhost:3000/graphiql) to test your queries and 
 ## Tests
 You can easily run specs on docker using `docker-compose run --rm web rspec spec/`
 
-# Graphgl training
+# Graphgl  tutorial
 
 ## What am I doing here?
-You will learn some graphql.
-Your training is spit into multiple scenarios. All scenarios are in spec/training_spec.rb file.
+
+Graphql tutorial is a first part of graphql training: https://docs.google.com/document/d/12r7Wy__0DiCEBXxK6pT5GwN_6AUXhPXm4wkN4GPXaIY/edit#
+
+Tutorial is split into multiple scenarios. All scenarios are in spec/tutorial_spec.rb file.
 But solving a scenario will require you to visit other places in this application.
-You must solve scenarios in order starting with scenario 1. When you start a scenario it's tests will be failing.
+You must solve scenarios in order starting with scenario_1 . When you start a scenario it's tests will be failing.
 Follow particular scenario instructions add/change application code to make the tests pass.
 When all scenario tests pass the scenario is done and you can procceed to the next one.
 
 ## Where do I start?
 Start by making a working branch for yourself
 
-`git checkout -b my_graphql_training`
+`git checkout -b my_graphql_tutorial`
 
-Then open spec/training_spec.rb file and start with scenario_1
+Then open spec/tutorial_spec.rb file and start with scenario_1
 
-`docker-compose run --rm web rspec spec/training_spec.rb`
+`docker-compose run --rm web rspec spec/tutorial_spec.rb`
  
-## What is graphql?
-GraphQL is a query language for your API, and a server-side runtime for executing queries by using a type system
-you define for your data. GraphQL isn't tied to any specific database or storage engine
-and is instead backed by your existing code and data.
-
 ## Literature
 https://graphql.org/learn/
 

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "graphql training", type: :request do
+RSpec.describe "graphql tutorial", type: :request do
   context "basic" do
     context "queries" do
       let(:shoes) { ProductCategory.create!(name: "Shoes") }
@@ -401,5 +401,9 @@ RSpec.describe "graphql training", type: :request do
         end
       end
     end
+
+    # TODO
+    # a scenario with some basic stuff with graphql-client
+    # https://github.com/github/graphql-client
   end
 end
