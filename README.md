@@ -1,18 +1,15 @@
 # Fashion Store Backend
 
 ## Project setup
-### Docker
-Projects development environment is dockerized, so just run `docker-compose up`.
+
+`docker-compose build`
+
+`docker-compose run web rake db:create`
+
 ### Seed database
 To seed database with example products just run `docker-compose run --rm web rake db:seed`.
 
-## Graphql api
-Use http://localhost:3000/graphql to post your queries and mutations.
-
-### Graphiql
-You can use [graphiql](http://localhost:3000/graphiql) to test your queries and check documentation.
-
-## Tests
+### Tests
 You can easily run specs on docker using `docker-compose run --rm web rspec spec/`
 
 # Graphgl  tutorial
@@ -43,3 +40,5 @@ https://graphql-ruby.org/guides
 
 https://github.com/Shopify/graphql-batch
    
+## Graphiql
+You can use [graphiql](http://localhost:3000/graphiql) to test your queries and check documentation.
