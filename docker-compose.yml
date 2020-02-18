@@ -1,34 +1,15 @@
-version: "3.7"
-
-x-common:
-  &common-settings
-  build:
-    context: .
-    dockerfile: docker/Dockerfile
-  restart: always
-
+version: '3'
 services:
+  db:
+    image: postgres:9.5.18
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
   web:
-    << : *common-settings
-    networks:
-      - backend
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/rnd_fashion_store_backend
     ports:
       - "3000:3000"
     depends_on:
       - db
-    volumes:
-      - ./:/app
-    tty: true
-    stdin_open: true
-
-  db:
-    image: postgres:12-alpine
-    volumes:
-      - ./tmp/db:/var/lib/postgresql/data
-    networks:
-      - backend
-    restart: always
-
-networks:
-  backend:
-    external: true
