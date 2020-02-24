@@ -29,7 +29,10 @@ Dir.each_child("products") do |file|
   p "Product #{data['data']['productDisplayName']} added"
 end
 
-cart = Cart.first_or_create
+user = User.first_or_create!(email: "test@example.com", password: "Asdqwe123")
+p "User created"
+
+cart = Cart.first_or_create(user: user)
 p "Cart created"
 
 10.times do 
