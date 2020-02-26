@@ -18,8 +18,8 @@ class GraphqlController < ApplicationController
   rescue StandardError => e
     handle_error e
   end
-  
- # scenario_9
+
+ # scenario_10
  # context = { current_user: current_user }
  # result = FashionStoreSchema.execute(query, context: context)
 

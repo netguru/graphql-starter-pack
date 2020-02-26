@@ -5,8 +5,8 @@
 #  query(Types::QueryType)
 # end
 
-# scenario_4
+# scenario_5
 # mutation(Types::MutationType)
 
-# scenario_8
+# scenario_9
 # GraphQL::Batch.use(self)
