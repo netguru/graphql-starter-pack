@@ -1,27 +1,27 @@
 # frozen_string_literal: true
 
-# scenario_4
+# scenario_5
 # module Mutations
 #   class CreateCartItem < BaseMutation
 #     argument :cart_id, Integer, required: true
 #     argument :product_variant_id, Integer, required: true
 #     argument :quantity, Integer, required: false
-# 
+#
 #     field :cart_item, Types::CartItemType, null: true
 #     field :errors, [String], null: true
-# 
+#
 #     def resolve(cart_id:, product_variant_id:, quantity:)
 #       cart = Cart.find cart_id
-# 
+#
 #       variant = ProductVariant.find product_variant_id
-# 
+#
 #       cart_item = CartItem.new(
 #         product: variant.product,
 #         product_variant: variant,
 #         cart: cart,
 #         quantity: quantity
 #       )
-#       
+#
 #       if cart_item.save
 #         {
 #           cart_item: cart_item,
@@ -37,5 +37,5 @@
 #   end
 # end
 
-# scenario_10
+# scenario_11
 # Authorization.authorize("create_cart_item", { cart: cart, current_user: context[:current_user] })

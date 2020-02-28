@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# scenario_4
+# scenario_5
 # module Mutations
 #   class BaseMutation < GraphQL::Schema::RelayClassicMutation
 #     argument_class Types::BaseArgument

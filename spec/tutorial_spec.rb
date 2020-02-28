@@ -8,6 +8,8 @@ RSpec.describe "graphql tutorial", type: :request do
       let(:shoes) { ProductCategory.create!(name: "Shoes") }
       let(:open_nose) { Product.create!(name: "Open nose", price_cents: 1, product_category: shoes) }
       let!(:flat) { Product.create!(name: "Flat", price_cents: 1, product_category: shoes) }
+      let!(:adidas) { Product.create!(name: "Adidas", price_cents: 1, product_category: shoes) }
+      let!(:nike) { Product.create!(name: "Nike", price_cents: 1, product_category: shoes) }
       let!(:white_variant) { ProductVariant.create!(variant_type: "color", value: "ffffff", label: "white", product: open_nose) }
       let!(:black_variant) { ProductVariant.create!(variant_type: "color", value: "000000", label: "black", product: open_nose) }
 
@@ -25,7 +27,7 @@ RSpec.describe "graphql tutorial", type: :request do
       # - g-search scenario_1
 
       it "scenario_1" do
-        query = 
+        query =
           %(query {
               products {
                 name
@@ -38,7 +40,7 @@ RSpec.describe "graphql tutorial", type: :request do
         result = JSON.parse(response.body)
 
         names = result.dig("data", "products").map { |product| product["name"] }
-        expect(names).to match_array(["Open nose", "Flat"])
+        expect(names).to match_array(["Open nose", "Flat", "Adidas", "Nike"])
       end
 
       ## Scenario 2 - graphiql simple use.
@@ -47,7 +49,7 @@ RSpec.describe "graphql tutorial", type: :request do
       # Allows to query directly with graphql engine, very helpfull during development.
       #
       # You will learn:
-      # - graphiql tool 
+      # - graphiql tool
       #
       # Instructions:
       # - g-search scenario_2
@@ -85,7 +87,7 @@ RSpec.describe "graphql tutorial", type: :request do
                 }
               }
             })
-      
+
         post "/graphql", params: { query: query }
 
         result = JSON.parse(response.body)
@@ -95,15 +97,52 @@ RSpec.describe "graphql tutorial", type: :request do
         expect(result.dig("data", "productCategory", "products")).to be_present
         variants = result.dig("data", "productCategory", "products").flat_map { |product| product["productVariants"] }
         expect(variants).to be_present
-        labels = variants.flat_map { |variant| variant["label"] } 
+        labels = variants.flat_map { |variant| variant["label"] }
         expect(labels).to match_array(["white", "black"])
       end
 
       # TODO:
-      # pagination
       # operation name
       # variables
       # https://graphql.org/learn/queries
+
+      # scenario_4 - pagination
+      # dont do global search, read:
+      # https://graphql.org/learn/pagination/
+      # https://www.2n.pl/blog/graphql-pagination-in-rails
+      # and add productConnection to Query
+
+      it 'scenario_4 - queries for only 2 products' do
+        query =
+          %(query {
+            productConnections(first: 2) {
+              pageInfo {
+                startCursor
+                endCursor
+                hasNextPage
+                hasPreviousPage
+              }
+              edges {
+                cursor
+                node {
+                  id
+                  name
+                  productVariants {
+                    id
+                  }
+                }
+              }
+            }
+          })
+
+        post "/graphql", params: { query: query }
+
+        result = JSON.parse(response.body)
+
+        expect(result["data"]).to be_present
+        expect(result.dig("data", "productConnections")).to be_present
+        expect(result.dig("data", "productConnections", "edges").count).to eq 2
+      end
     end
 
     context "mutations" do
@@ -122,9 +161,9 @@ RSpec.describe "graphql tutorial", type: :request do
       # - mutations that create records
       #
       # Instructions:
-      # - g-search scenario_4
+      # - g-search scenario_5
 
-      it "scenario_4" do
+      it "scenario_5" do
         query = %(
           mutation {
             createCartItem(
@@ -162,9 +201,9 @@ RSpec.describe "graphql tutorial", type: :request do
       # - mutations that update records
       #
       # Instructions:
-      # - g-search scenario_5
+      # - g-search scenario_6
 
-      it "scenario_5" do
+      it "scenario_6" do
         cart_item = CartItem.create!(quantity: 1, product: open_nose, product_variant: white_variant, cart: cart )
 
         query = %(
@@ -196,9 +235,9 @@ RSpec.describe "graphql tutorial", type: :request do
       # - mutations that destroy records
       #
       # Instructions:
-      # - g-search scenario_6
+      # - g-search scenario_7
 
-      it "scenario_6" do
+      it "scenario_7" do
         cart_item = CartItem.create!(quantity: 1, product: open_nose, product_variant: white_variant, cart: cart )
 
         query = %(
@@ -227,11 +266,11 @@ RSpec.describe "graphql tutorial", type: :request do
     # - Generating graphql schema with a rake task.
     #
     # Instructions:
-    # - g-search scenario_7
+    # - g-search scenario_8
     # - run `docker-compose run --rm web rake dump_graphql_schema`
 
     context "testing" do
-      it "scenario_7" do
+      it "scenario_8" do
         current_schema = FashionStoreSchema.to_definition
         schema_archive = File.read(Rails.root.join("app/graphql/schema.graphql")) rescue nil
         expect(current_schema).to eq(schema_archive), "Update the graphql schema with `bundle exec rake dump_graphql_schema`"
@@ -260,9 +299,9 @@ RSpec.describe "graphql tutorial", type: :request do
       # - graph-batch gem and AssociationLoader pattern
       #
       # Instructions:
-      # - g-search scenario_8
+      # - g-search scenario_9
 
-      it "scenario_8" do
+      it "scenario_9" do
         query =
           %(query {
               products {
@@ -272,7 +311,7 @@ RSpec.describe "graphql tutorial", type: :request do
                 }
               }
             })
-      
+
         number_of_sql_queries = 0
         counter = lambda do |*args|
           number_of_sql_queries = number_of_sql_queries + 1
@@ -289,7 +328,7 @@ RSpec.describe "graphql tutorial", type: :request do
         products = result.dig("data", "products")
         variants = products.flat_map { |product| product["productVariants"] }
         expect(variants).to be_present
-        labels = variants.flat_map { |variant| variant["label"] } 
+        labels = variants.flat_map { |variant| variant["label"] }
         expect(labels).to match_array(["white", "black", "red", "violet", "grey"])
         expect(number_of_sql_queries).to eq 2
       end
@@ -311,9 +350,9 @@ RSpec.describe "graphql tutorial", type: :request do
       # - How a graphql query can access current user.
       #
       # Instructions:
-      # - g-search scenario_9
+      # - g-search scenario_10
 
-      it "scenario_9" do
+      it "scenario_10" do
         user = User.create!(email: "user@email.com", password: "123456")
         sign_in user
 
@@ -345,9 +384,9 @@ RSpec.describe "graphql tutorial", type: :request do
           # - How to authorize a mutatuon.
           #
           # Instructions:
-          # - g-search scenario_10
+          # - g-search scenario_11
 
-          it "scenario_10" do
+          it "scenario_11" do
             sign_in morty
 
             query = %(
@@ -379,9 +418,9 @@ RSpec.describe "graphql tutorial", type: :request do
           # - How to authorize a query.
           #
           # Instructions:
-          # - g-search scenario_11
+          # - g-search scenario_12
 
-          it "scenario_11" do
+          it "scenario_12" do
             query =
               %(query {
                   cartItems(cartId: #{cart.id}) {
@@ -390,7 +429,7 @@ RSpec.describe "graphql tutorial", type: :request do
                     }
                   }
                 })
-      
+
             post "/graphql", params: { query: query }
 
             result = JSON.parse(response.body)

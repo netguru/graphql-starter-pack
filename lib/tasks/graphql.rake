@@ -1,4 +1,4 @@
-# scenario_7
+# scenario_8
 # task dump_graphql_schema: :environment do
 #   # Get a string containing the definition in GraphQL IDL:
 #   schema_defn = FashionStoreSchema.to_definition
