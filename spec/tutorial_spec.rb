@@ -115,7 +115,7 @@ RSpec.describe "graphql tutorial", type: :request do
       it 'scenario_4 - queries for only 2 products' do
         query =
           %(query {
-            productConnections(first: 2) {
+            productsConnections(first: 2) {
               pageInfo {
                 startCursor
                 endCursor
@@ -140,8 +140,8 @@ RSpec.describe "graphql tutorial", type: :request do
         result = JSON.parse(response.body)
 
         expect(result["data"]).to be_present
-        expect(result.dig("data", "productConnections")).to be_present
-        expect(result.dig("data", "productConnections", "edges").count).to eq 2
+        expect(result.dig("data", "productsConnections")).to be_present
+        expect(result.dig("data", "productsConnections", "edges").count).to eq 2
       end
     end
 
