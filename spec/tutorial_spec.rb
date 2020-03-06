@@ -153,7 +153,7 @@ RSpec.describe "graphql tutorial", type: :request do
       let!(:black_variant) { ProductVariant.create!(variant_type: "color", value: "000000", label: "black", product: open_nose) }
       let!(:white_variant) { ProductVariant.create!(variant_type: "color", value: "ffffff", label: "white", product: open_nose) }
 
-      ## Scenario 4 - simple create.
+      ## Scenario 5 - simple create.
       #
       # For creating a record you need to write a mutation.
       #
@@ -193,7 +193,7 @@ RSpec.describe "graphql tutorial", type: :request do
         expect(cart_item.quantity).to eq 2
       end
 
-      ## Scenario 5 - simple update.
+      ## Scenario 6 - simple update.
       #
       # To update a record you need to write a mutation.
       #
@@ -227,7 +227,7 @@ RSpec.describe "graphql tutorial", type: :request do
         expect(cart_item.reload.quantity).to eq 4
       end
 
-      ## Scenario 6 - simple destroy.
+      ## Scenario 7 - simple destroy.
       #
       # To destroy a record you need to write a mutation.
       #
@@ -257,7 +257,7 @@ RSpec.describe "graphql tutorial", type: :request do
       end
     end
 
-    ## Scenario 7 - testing, make sure schema diff is present in PR.
+    ## Scenario 8 - testing, make sure schema diff is present in PR.
     #
     # It is possible to generate a schema for graphql queries and mutations. Since any changes to this schema
     # could break clients queries it is a good practice to have a graphql schema diff in PRs.
@@ -290,13 +290,13 @@ RSpec.describe "graphql tutorial", type: :request do
       let!(:violet_variant) { ProductVariant.create!(variant_type: "color", value: "fff000", label: "violet", product: flat) }
       let!(:grey_variant) { ProductVariant.create!(variant_type: "color", value: "f0000f", label: "grey", product: track) }
 
-      ## Scenario 8 - fix n+1 on querying associated records.
+      ## Scenario 9 - fix n+1 on querying associated records.
       #
       # Graphql default strategy for querying will result in n+1 queries in some cases.
       # You will optimize the querying strategy for a case of associated records in this scenario.
       #
       # You will learn:
-      # - graph-batch gem and AssociationLoader pattern
+      # - graphql-batch gem and AssociationLoader pattern
       #
       # Instructions:
       # - g-search scenario_9
@@ -342,7 +342,7 @@ RSpec.describe "graphql tutorial", type: :request do
     end
 
     context "auth" do
-      ## Scenario 9 - authentication options.
+      ## Scenario 10 - authentication options.
       #
       # Graphql does not provide any solution for authentication. Just use devise current_user.
       #
@@ -376,7 +376,7 @@ RSpec.describe "graphql tutorial", type: :request do
         let!(:white_variant) { ProductVariant.create!(variant_type: "color", value: "ffffff", label: "white", product: open_nose) }
 
         context "mutations" do
-          ## Scenario 10 - cant add item to another's user cart.
+          ## Scenario 11 - cant add item to another's user cart.
           #
           # Allowing/disallowing a query based on user permissions.
           #
@@ -410,7 +410,7 @@ RSpec.describe "graphql tutorial", type: :request do
         end
 
         context "queries" do
-          ## Scenario 11 - cant query another user's cart items.
+          ## Scenario 12 - cant query another user's cart items.
           #
           # Allowing/disallowing a query based on user permissions.
           #
