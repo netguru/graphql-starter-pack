@@ -13,7 +13,7 @@
 #   end
 # end
 
-# scenario_12
+# data_visibility_scenario
 # field :product, Types::ProductType, null: true
 #
 # def product

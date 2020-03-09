@@ -381,7 +381,7 @@ RSpec.describe "graphql tutorial", type: :request do
           # Allowing/disallowing a query based on user permissions.
           #
           # You will learn:
-          # - How to authorize a mutatuon.
+          # - How to authorize a mutation.
           #
           # Instructions:
           # - g-search authorization_scenario
@@ -418,9 +418,9 @@ RSpec.describe "graphql tutorial", type: :request do
           # - How to authorize a query.
           #
           # Instructions:
-          # - g-search scenario_12
+          # - g-search data_visibility_scenario
 
-          it "scenario_12" do
+          it "data_visibility_scenario" do
             query =
               %(query {
                   cartItems(cartId: #{cart.id}) {

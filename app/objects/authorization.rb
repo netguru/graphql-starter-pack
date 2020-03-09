@@ -18,7 +18,7 @@ end
 #   end
 # end
 
-# scenario_12
+# data_visibility_scenario
 # when "read_cart_items"
 #   cart = options[:cart]
 #   current_user = options[:current_user]

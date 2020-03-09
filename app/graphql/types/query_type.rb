@@ -26,7 +26,7 @@
 #   ProductCategory.find(id)
 # end
 
-# scenario_12
+# data_visibility_scenario
 # field :cart_items,
 #       [Types::CartItemType],
 #       null: false,
