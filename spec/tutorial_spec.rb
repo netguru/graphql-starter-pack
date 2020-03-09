@@ -384,9 +384,9 @@ RSpec.describe "graphql tutorial", type: :request do
           # - How to authorize a mutatuon.
           #
           # Instructions:
-          # - g-search scenario_11
+          # - g-search authorization_scenario
 
-          it "scenario_11" do
+          it "authorization_scenario" do
             sign_in morty
 
             query = %(

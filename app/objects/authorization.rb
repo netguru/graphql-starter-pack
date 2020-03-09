@@ -2,7 +2,7 @@ module Authorization
   class Error < StandardError; end
 end
 
-# scenario_11
+# authorization_scenario
 # module Authorization
 #   class Error < StandardError; end
 #

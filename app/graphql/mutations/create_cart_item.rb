@@ -37,5 +37,5 @@
 #   end
 # end
 
-# scenario_11
+# authorization_scenario
 # Authorization.authorize("create_cart_item", { cart: cart, current_user: context[:current_user] })
