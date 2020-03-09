@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# scenario_1
+# simple_query_scenario
 # class FashionStoreSchema < GraphQL::Schema
 #  query(Types::QueryType)
 # end

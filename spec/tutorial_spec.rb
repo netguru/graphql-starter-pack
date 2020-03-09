@@ -24,9 +24,9 @@ RSpec.describe "graphql tutorial", type: :request do
       # - Fields
       #
       # Instructions:
-      # - g-search scenario_1
+      # - g-search simple_query_scenario
 
-      it "scenario_1" do
+      it "simple_query_scenario" do
         query =
           %(query {
               products {

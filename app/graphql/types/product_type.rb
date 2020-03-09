@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# scenario_1
+# simple_query_scenario
 # module Types
 #   class ProductType < Types::BaseObject
 #     field :id, ID, null: false

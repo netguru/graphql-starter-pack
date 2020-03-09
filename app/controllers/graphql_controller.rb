@@ -11,7 +11,7 @@ class GraphqlController < ApplicationController
   end
 
   def execute
-    # scenario_1
+    # simple_query_scenario
     # query = params[:query]
     # result = FashionStoreSchema.execute(query)
     # render json: result

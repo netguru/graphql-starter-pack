@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   root to: "graphql#index"
 
-  # scenario_1
+  # simple_query_scenario
   #
   # Notice:
   # In GraphQL, you'll provide a JSON-encoded body whether
