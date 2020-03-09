@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# scenario_7
+# mutation_destroy_scenario
 # module Mutations
 #   class DestroyCartItem < BaseMutation
 #     argument :id, Integer, required: true

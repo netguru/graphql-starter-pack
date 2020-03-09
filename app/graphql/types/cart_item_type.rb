@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# scenario_5
+# mutation_create_scenario
 # module Types
 #   class CartItemType < Types::BaseObject
 #     field :id, ID, null: false
@@ -13,7 +13,7 @@
 #   end
 # end
 
-# scenario_12
+# data_visibility_scenario
 # field :product, Types::ProductType, null: true
 #
 # def product

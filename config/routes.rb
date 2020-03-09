@@ -3,14 +3,14 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  # scenario_2
+  # graphiql_scenario
   # if Rails.env.development?
   #   mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   # end
 
   root to: "graphql#index"
 
-  # scenario_1
+  # simple_query_scenario
   #
   # Notice:
   # In GraphQL, you'll provide a JSON-encoded body whether

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-# scenario_3
+# more_complex_query_scenario
 # module Types
 #   class ProductVariantType < Types::BaseObject
 #     field :label, String, null: false
 #   end
 # end
 
-# scenario_5
+# mutation_create_scenario
 # field :id, ID, null: false

@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-# scenario_5
+# mutation_create_scenario
 # module Types
 #   class MutationType < Types::BaseObject
 #     field :create_cart_item, mutation: Mutations::CreateCartItem
 #   end
 # end
 
-# scenario_6
+# mutation_update_scenario
 # field :update_cart_item, mutation: Mutations::UpdateCartItem
 
-# scenario_7
+# mutation_destroy_scenario
 # field :destroy_cart_item, mutation: Mutations::DestroyCartItem

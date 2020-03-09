@@ -11,7 +11,7 @@ class GraphqlController < ApplicationController
   end
 
   def execute
-    # scenario_1
+    # simple_query_scenario
     # query = params[:query]
     # result = FashionStoreSchema.execute(query)
     # render json: result
@@ -19,7 +19,7 @@ class GraphqlController < ApplicationController
     handle_error e
   end
 
- # scenario_10
+ # authentication_scenario
  # context = { current_user: current_user }
  # result = FashionStoreSchema.execute(query, context: context)
 

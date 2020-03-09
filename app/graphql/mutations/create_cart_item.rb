@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# scenario_5
+# mutation_create_scenario
 # module Mutations
 #   class CreateCartItem < BaseMutation
 #     argument :cart_id, Integer, required: true
@@ -37,5 +37,5 @@
 #   end
 # end
 
-# scenario_11
+# authorization_scenario
 # Authorization.authorize("create_cart_item", { cart: cart, current_user: context[:current_user] })

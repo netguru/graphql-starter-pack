@@ -24,9 +24,9 @@ RSpec.describe "graphql tutorial", type: :request do
       # - Fields
       #
       # Instructions:
-      # - g-search scenario_1
+      # - g-search simple_query_scenario
 
-      it "scenario_1" do
+      it "simple_query_scenario" do
         query =
           %(query {
               products {
@@ -52,12 +52,12 @@ RSpec.describe "graphql tutorial", type: :request do
       # - graphiql tool
       #
       # Instructions:
-      # - g-search scenario_2
+      # - g-search graphiql_scenario
       # - run `docker-compose up`
       # - go to http://localhost:3000/graphiql
       # - query `{ products { name } }` .
 
-      it "scenario_2" do
+      it "graphiql_scenario" do
         graphiql_works_for_me = false
         expect(graphiql_works_for_me).to be true
       end
@@ -72,9 +72,9 @@ RSpec.describe "graphql tutorial", type: :request do
       # - Arguments
       #
       # Instructions:
-      # g-search "scenario_3"
+      # g-search "more_complex_query_scenario"
 
-      it "scenario_3" do
+      it "more_complex_query_scenario" do
         query =
           %(query {
               productCategory(id: #{shoes.id}) {
@@ -106,13 +106,13 @@ RSpec.describe "graphql tutorial", type: :request do
       # variables
       # https://graphql.org/learn/queries
 
-      # scenario_4 - pagination
+      # Scenario 4 - pagination
       # dont do global search, read:
       # https://graphql.org/learn/pagination/
       # https://www.2n.pl/blog/graphql-pagination-in-rails
       # and add productConnection to Query
 
-      it 'scenario_4 - queries for only 2 products' do
+      it 'pagination_scenario' do
         query =
           %(query {
             productsConnection(first: 2) {
@@ -161,9 +161,12 @@ RSpec.describe "graphql tutorial", type: :request do
       # - mutations that create records
       #
       # Instructions:
-      # - g-search scenario_5
+      # - g-search mutation_create_scenario
 
-      it "scenario_5" do
+      it "mutation_create_scenario" do
+        # skip it for now - uncomment the line below when you reach authorization_scenario
+        # sign_in user
+
         query = %(
           mutation {
             createCartItem(
@@ -201,9 +204,9 @@ RSpec.describe "graphql tutorial", type: :request do
       # - mutations that update records
       #
       # Instructions:
-      # - g-search scenario_6
+      # - g-search mutation_update_scenario
 
-      it "scenario_6" do
+      it "mutation_update_scenario" do
         cart_item = CartItem.create!(quantity: 1, product: open_nose, product_variant: white_variant, cart: cart )
 
         query = %(
@@ -235,9 +238,9 @@ RSpec.describe "graphql tutorial", type: :request do
       # - mutations that destroy records
       #
       # Instructions:
-      # - g-search scenario_7
+      # - g-search mutation_destroy_scenario
 
-      it "scenario_7" do
+      it "mutation_destroy_scenario" do
         cart_item = CartItem.create!(quantity: 1, product: open_nose, product_variant: white_variant, cart: cart )
 
         query = %(
@@ -266,11 +269,11 @@ RSpec.describe "graphql tutorial", type: :request do
     # - Generating graphql schema with a rake task.
     #
     # Instructions:
-    # - g-search scenario_8
+    # - g-search schema_scenario
     # - run `docker-compose run --rm web rake dump_graphql_schema`
 
     context "testing" do
-      it "scenario_8" do
+      it "schema_scenario" do
         current_schema = FashionStoreSchema.to_definition
         schema_archive = File.read(Rails.root.join("app/graphql/schema.graphql")) rescue nil
         expect(current_schema).to eq(schema_archive), "Update the graphql schema with `bundle exec rake dump_graphql_schema`"
@@ -299,9 +302,9 @@ RSpec.describe "graphql tutorial", type: :request do
       # - graphql-batch gem and AssociationLoader pattern
       #
       # Instructions:
-      # - g-search scenario_9
+      # - g-search optimization_scenario
 
-      it "scenario_9" do
+      it "optimization_scenario" do
         query =
           %(query {
               products {
@@ -350,9 +353,9 @@ RSpec.describe "graphql tutorial", type: :request do
       # - How a graphql query can access current user.
       #
       # Instructions:
-      # - g-search scenario_10
+      # - g-search authentication_scenario
 
-      it "scenario_10" do
+      it "authentication_scenario" do
         user = User.create!(email: "user@email.com", password: "123456")
         sign_in user
 
@@ -381,12 +384,12 @@ RSpec.describe "graphql tutorial", type: :request do
           # Allowing/disallowing a query based on user permissions.
           #
           # You will learn:
-          # - How to authorize a mutatuon.
+          # - How to authorize a mutation.
           #
           # Instructions:
-          # - g-search scenario_11
+          # - g-search authorization_scenario
 
-          it "scenario_11" do
+          it "authorization_scenario" do
             sign_in morty
 
             query = %(
@@ -418,9 +421,9 @@ RSpec.describe "graphql tutorial", type: :request do
           # - How to authorize a query.
           #
           # Instructions:
-          # - g-search scenario_12
+          # - g-search data_visibility_scenario
 
-          it "scenario_12" do
+          it "data_visibility_scenario" do
             query =
               %(query {
                   cartItems(cartId: #{cart.id}) {

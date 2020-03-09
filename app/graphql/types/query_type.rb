@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# scenario_1
+# simple_query_scenario
 # module Types
 #   class QueryType < Types::BaseObject
 #     field :products,
@@ -14,7 +14,7 @@
 #   end
 # end
 
-# scenario_3
+# more_complex_query_scenario
 # field :product_category,
 #       Types::ProductCategoryType,
 #       null: false,
@@ -26,7 +26,7 @@
 #   ProductCategory.find(id)
 # end
 
-# scenario_12
+# data_visibility_scenario
 # field :cart_items,
 #       [Types::CartItemType],
 #       null: false,
