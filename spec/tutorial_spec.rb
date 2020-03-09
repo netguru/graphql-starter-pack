@@ -164,6 +164,9 @@ RSpec.describe "graphql tutorial", type: :request do
       # - g-search mutation_create_scenario
 
       it "mutation_create_scenario" do
+        # skip it for now - uncomment the line below when you reach authorization_scenario
+        # sign_in user
+
         query = %(
           mutation {
             createCartItem(
