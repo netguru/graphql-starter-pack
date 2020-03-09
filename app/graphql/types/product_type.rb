@@ -14,7 +14,7 @@
 #   object.product_variants
 # end
 
-# scenario_9
+# optimization_scenario
 # def product_variants
 #   AssociationLoader.for(Product, :product_variants).load(object)
 # end

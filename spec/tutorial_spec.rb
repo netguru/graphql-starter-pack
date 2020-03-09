@@ -299,9 +299,9 @@ RSpec.describe "graphql tutorial", type: :request do
       # - graphql-batch gem and AssociationLoader pattern
       #
       # Instructions:
-      # - g-search scenario_9
+      # - g-search optimization_scenario
 
-      it "scenario_9" do
+      it "optimization_scenario" do
         query =
           %(query {
               products {

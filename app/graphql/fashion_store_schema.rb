@@ -8,5 +8,5 @@
 # mutation_create_scenario
 # mutation(Types::MutationType)
 
-# scenario_9
+# optimization_scenario
 # GraphQL::Batch.use(self)
