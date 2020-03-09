@@ -106,13 +106,13 @@ RSpec.describe "graphql tutorial", type: :request do
       # variables
       # https://graphql.org/learn/queries
 
-      # scenario_4 - pagination
+      # Scenario 4 - pagination
       # dont do global search, read:
       # https://graphql.org/learn/pagination/
       # https://www.2n.pl/blog/graphql-pagination-in-rails
       # and add productConnection to Query
 
-      it 'scenario_4 - queries for only 2 products' do
+      it 'pagination_scenario' do
         query =
           %(query {
             productsConnection(first: 2) {
