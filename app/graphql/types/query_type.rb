@@ -14,7 +14,7 @@
 #   end
 # end
 
-# scenario_3
+# more_complex_query_scenario
 # field :product_category,
 #       Types::ProductCategoryType,
 #       null: false,

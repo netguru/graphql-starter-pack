@@ -72,9 +72,9 @@ RSpec.describe "graphql tutorial", type: :request do
       # - Arguments
       #
       # Instructions:
-      # g-search "scenario_3"
+      # g-search "more_complex_query_scenario"
 
-      it "scenario_3" do
+      it "more_complex_query_scenario" do
         query =
           %(query {
               productCategory(id: #{shoes.id}) {

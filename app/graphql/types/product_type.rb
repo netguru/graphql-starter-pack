@@ -8,7 +8,7 @@
 #   end
 # end
 
-# scenario_3
+# more_complex_query_scenario
 # field :product_variants, [Types::ProductVariantType], null: true
 # def product_variants
 #   object.product_variants
