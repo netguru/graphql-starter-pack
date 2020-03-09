@@ -201,9 +201,9 @@ RSpec.describe "graphql tutorial", type: :request do
       # - mutations that update records
       #
       # Instructions:
-      # - g-search scenario_6
+      # - g-search mutation_update_scenario
 
-      it "scenario_6" do
+      it "mutation_update_scenario" do
         cart_item = CartItem.create!(quantity: 1, product: open_nose, product_variant: white_variant, cart: cart )
 
         query = %(
@@ -235,9 +235,9 @@ RSpec.describe "graphql tutorial", type: :request do
       # - mutations that destroy records
       #
       # Instructions:
-      # - g-search scenario_7
+      # - g-search mutation_destroy_scenario
 
-      it "scenario_7" do
+      it "mutation_destroy_scenario" do
         cart_item = CartItem.create!(quantity: 1, product: open_nose, product_variant: white_variant, cart: cart )
 
         query = %(

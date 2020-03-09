@@ -7,8 +7,8 @@
 #   end
 # end
 
-# scenario_6
+# mutation_update_scenario
 # field :update_cart_item, mutation: Mutations::UpdateCartItem
 
-# scenario_7
+# mutation_destroy_scenario
 # field :destroy_cart_item, mutation: Mutations::DestroyCartItem
