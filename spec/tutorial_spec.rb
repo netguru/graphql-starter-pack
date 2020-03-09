@@ -161,9 +161,9 @@ RSpec.describe "graphql tutorial", type: :request do
       # - mutations that create records
       #
       # Instructions:
-      # - g-search scenario_5
+      # - g-search mutation_create_scenario
 
-      it "scenario_5" do
+      it "mutation_create_scenario" do
         query = %(
           mutation {
             createCartItem(

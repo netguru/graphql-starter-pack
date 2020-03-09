@@ -5,7 +5,7 @@
 #  query(Types::QueryType)
 # end
 
-# scenario_5
+# mutation_create_scenario
 # mutation(Types::MutationType)
 
 # scenario_9

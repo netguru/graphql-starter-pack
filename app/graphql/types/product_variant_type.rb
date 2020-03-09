@@ -7,5 +7,5 @@
 #   end
 # end
 
-# scenario_5
+# mutation_create_scenario
 # field :id, ID, null: false

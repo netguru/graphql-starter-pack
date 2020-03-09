@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# scenario_5
+# mutation_create_scenario
 # module Types
 #   class CartItemType < Types::BaseObject
 #     field :id, ID, null: false
