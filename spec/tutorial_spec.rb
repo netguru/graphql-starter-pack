@@ -266,11 +266,11 @@ RSpec.describe "graphql tutorial", type: :request do
     # - Generating graphql schema with a rake task.
     #
     # Instructions:
-    # - g-search scenario_8
+    # - g-search schema_scenario
     # - run `docker-compose run --rm web rake dump_graphql_schema`
 
     context "testing" do
-      it "scenario_8" do
+      it "schema_scenario" do
         current_schema = FashionStoreSchema.to_definition
         schema_archive = File.read(Rails.root.join("app/graphql/schema.graphql")) rescue nil
         expect(current_schema).to eq(schema_archive), "Update the graphql schema with `bundle exec rake dump_graphql_schema`"
