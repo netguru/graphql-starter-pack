@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  # scenario_2
+  # graphiql_scenario
   # if Rails.env.development?
   #   mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   # end

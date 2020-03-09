@@ -52,12 +52,12 @@ RSpec.describe "graphql tutorial", type: :request do
       # - graphiql tool
       #
       # Instructions:
-      # - g-search scenario_2
+      # - g-search graphiql_scenario
       # - run `docker-compose up`
       # - go to http://localhost:3000/graphiql
       # - query `{ products { name } }` .
 
-      it "scenario_2" do
+      it "graphiql_scenario" do
         graphiql_works_for_me = false
         expect(graphiql_works_for_me).to be true
       end
