@@ -350,9 +350,9 @@ RSpec.describe "graphql tutorial", type: :request do
       # - How a graphql query can access current user.
       #
       # Instructions:
-      # - g-search scenario_10
+      # - g-search authentication_scenario
 
-      it "scenario_10" do
+      it "authentication_scenario" do
         user = User.create!(email: "user@email.com", password: "123456")
         sign_in user
 
