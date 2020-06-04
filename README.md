@@ -1,4 +1,4 @@
-# Fashion Store Backend
+# Graphql Starter Pack
 
 ## Project setup
 
@@ -12,7 +12,7 @@ To seed database with example products just run `docker-compose run --rm web rak
 ### Tests
 You can easily run specs on docker using `docker-compose run --rm web rspec spec/`
 
-# Graphgl  tutorial
+# Graphgl tutorial
 
 ## What am I doing here?
 
