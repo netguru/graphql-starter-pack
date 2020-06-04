@@ -1,4 +1,4 @@
-# Graphql Starter Pack
+Just a small change for testing...
 
 ## Project setup
 
